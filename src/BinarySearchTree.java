@@ -156,6 +156,12 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	}
 
 	
+//	Contrato Descrição
+//	countNodes
+//	Objetivo: retornar o número de nós
+//	da árvore.
+//	Parâmetros: nenhum.
+//	Retorno: número de nós da árvore 
 	@Override
 	public int countNodes() {
 		return countNodes(root);
