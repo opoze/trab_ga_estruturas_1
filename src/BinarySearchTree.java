@@ -155,4 +155,19 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	   }
 	}
 
+	
+	@Override
+	public int countNodes() {
+		return countNodes(root);
+	}
+
+	private int countNodes(Node node) {
+		if(node != null) {
+			return 1 + countNodes(node.left) + countNodes(node.right);
+		}
+		return 0;
+	}
+
+	
+	
 }
