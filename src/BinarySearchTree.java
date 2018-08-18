@@ -60,97 +60,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 
 	    return node;
 	}
-
-
-	@Override
-	public boolean delete(K key) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void preOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void inOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void postOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void levelOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int countNodes() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int countInternalNodes() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int countLeaves() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int degree(K key) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int degreeTree() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int height(K key) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int heightTree() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int depth(K key) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String ancestors(K key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String descendents(K key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public String toString() {
@@ -178,6 +87,72 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	        printTree(node.left, false, sb, indent + (isRight ? " |      " : "        "));
 	    }
 	}
-
 	
+	@Override
+	public boolean delete(K key) {
+	   return deleteByCopying(key);
+	}
+	
+	private boolean deleteByCopying(K key) {
+	    Node parent = null, current = root;
+	    for (; current != null && key.compareTo(current.key) != 0; parent = current, current = current.next(key));
+	    
+	    if (current == null) 
+	        return false;
+	    else if (current.left != null && current.right != null) {
+	        // Caso 3
+	        Node tmp = current.left;     
+	        while (tmp.right != null) tmp = tmp.right;
+	        deleteByCopying(tmp.key); 
+	        current.key = tmp.key; 
+	    } else {
+	        // Caso 1 ou Caso 2
+	        Node nextNode = current.right == null ? current.left : current.right;
+	        if (current.equals(root)) root = nextNode;
+	        else if (parent.left.equals(current)) parent.left = nextNode;
+	        else parent.right = nextNode;
+	    }
+
+	    return true;
+	}
+	
+	@Override
+	public void preOrder() {
+	   preOrder(root);
+	}
+
+	private void preOrder(Node node) {
+	   if (node != null) {
+	       System.out.print(node + " ");
+	       preOrder(node.left);
+	       preOrder(node.right);
+	   }
+	}
+	
+	@Override
+	public void inOrder() {
+	    inOrder(root);
+	}
+	
+	private void inOrder(Node node) {
+	   if (node != null) {
+	      inOrder(node.left);
+	      System.out.print(node + " ");
+	      inOrder(node.right);
+	   }
+	}
+
+	@Override
+	public void postOrder() {
+	   postOrder(root);
+	}
+	
+	private void postOrder(Node node) {
+	   if (node != null) {
+	     postOrder(node.left);
+	     postOrder(node.right);
+	     System.out.print(node + " ");
+	   }
+	}
+
 }
