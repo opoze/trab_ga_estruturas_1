@@ -173,8 +173,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	}
 
 	public int countInternalNodes(Node node) {
-		if(node != null) {
-			return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
+    	if(node != null){
+			if(node.left != null || node.right != null){
+				return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
+			}
 		}
 		return 0;
 	}

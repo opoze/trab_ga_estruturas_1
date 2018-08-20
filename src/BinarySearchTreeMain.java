@@ -13,6 +13,10 @@ public class BinarySearchTreeMain {
         BST.insert(5, 5);
 
         System.out.println(BST.toString());
+        System.out.println(BST.countNodes());
+        System.out.println(BST.countInternalNodes());
+
+
     }
 
 }
