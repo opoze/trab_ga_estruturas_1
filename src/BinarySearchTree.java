@@ -169,7 +169,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 
 	@Override
 	public int countInternalNodes() {
-		return countInternalNodes(root.left) + countInternalNodes(root.right);
+    	if(root != null){
+			return countInternalNodes(root.left) + countInternalNodes(root.right);
+		}
+		return 0;
 	}
 
 	public int countInternalNodes(Node node) {
