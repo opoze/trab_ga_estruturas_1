@@ -155,14 +155,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	   }
 	}
 
-	
-//	Contrato Descrição
-//	countNodes
-//	Objetivo: retornar o número de nós
-//	da árvore.
-//	Parâmetros: nenhum.
-//	Retorno: número de nós da árvore ou zero caso a árvore esteja
-//	vazia.
 	@Override
 	public int countNodes() {
 		return countNodes(root);
@@ -175,27 +167,61 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		return 0;
 	}
 
-	//	countInternalNodes
-	//	Objetivo: retornar o número de nós
-	//	internos da árvore.
-	//	Parâmetros: nenhum.
-	//	Retorno: número de nós internos da
-	//	árvore ou zero caso a árvore
-	//	esteja vazia.
-	
-	//Nó não terminal (ou nó interno) (internal node):
-	//é um nó que não é uma folha e é diferente da raiz 
-	//(cuidado: alguns autores tratam a raiz como um nó interno, 
-	//pois depende do propósito! Em nosso contexto
-	//, a raiz não faz parte!!!).
 	@Override
 	public int countInternalNodes() {
+		return countInternalNodes(root.left) + countInternalNodes(root.right);
+	}
+
+	public int countInternalNodes(Node node) {
+		if(node != null) {
+			return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
+		}
 		return 0;
 	}
-	
-	
-	
 
-	
-	
+
+    @Override
+    public void levelOrder() {
+
+    }
+
+    @Override
+    public int countLeaves() {
+        return 0;
+    }
+
+    @Override
+    public int degree(K key) {
+        return 0;
+    }
+
+    @Override
+    public int degreeTree() {
+        return 0;
+    }
+
+    @Override
+    public int height(K key) {
+        return 0;
+    }
+
+    @Override
+    public int heightTree() {
+        return 0;
+    }
+
+    @Override
+    public int depth(K key) {
+        return 0;
+    }
+
+    @Override
+    public String ancestors(K key) {
+        return null;
+    }
+
+    @Override
+    public String descendents(K key) {
+        return null;
+    }
 }

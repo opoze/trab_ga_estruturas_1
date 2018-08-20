@@ -50,13 +50,13 @@ dos contratos de forma recursiva e lembre-se que poderá ser
 criado qualquer método que facilite o desenvolvimento.
 
 
-###Quadro 1: Descrição dos Contratos
+### Quadro 1: Descrição dos Contratos
 
 |  Contrato | Descrição |
 |---|---|
-|  countNodes|  **Objetivo**: retornar o número de nós da árvore. **Parâmetros**:nenhum. **Retorno**: número de nós da árvore |
-|countInternalNodes  |  |
-|countLeaves|  |
+|countNodes|  **Objetivo**: retornar o número de nós da árvore. **Parâmetros**:nenhum. **Retorno**: número de nós da árvore |
+|countInternalNodes| **Objetivo**: retornar o número de nós internos da árvore. **Parâmetros**: nenhum. **Retorno**: número de nós internos da árvore ou zero caso a árvore esteja vazia. |
+|  |  |
 |  |  |
 |  |  |
 |  |  |
