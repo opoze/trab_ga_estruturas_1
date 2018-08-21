@@ -9,7 +9,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
         private Node left, right;
 
         public Node(K key, V value) {
-            this.key = key;
+            this.key = key; 
             this.value = value;
         }
 
@@ -190,7 +190,80 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	//, a raiz não faz parte!!!).
 	@Override
 	public int countInternalNodes() {
+		return countInternalNodes(root);
+	}
+	private int countInternalNodes(Node node) {
+		//com root;
+		if(node == root){
+			return countInternalNodes(node.left) + countInternalNodes(node.right);
+		}
+		if(node != null && (node.left != null || node.right != null) ){
+			return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
+		}
 		return 0;
+	}
+	
+
+	@Override
+	public void levelOrder() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int countLeaves() {
+		return countLeaves(root);
+	}
+	private int countLeaves(Node node){
+		if(node == null){
+			return 0;
+		}
+		if(node.left == null && node.right == null ){
+			return 1;
+		}
+		return countLeaves(node.left) + countLeaves(node.right);
+	}
+	
+	@Override
+	public int degree(K key) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int degreeTree() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int height(K key) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int heightTree() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int depth(K key) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String ancestors(K key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String descendents(K key) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
