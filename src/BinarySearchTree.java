@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearchTreeADT<K, V> {
 
@@ -45,6 +46,32 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	}
 
 	@Override
+	public String descendents(K key)
+	{
+		StringBuffer sb = new StringBuffer();
+		descendents(root, key, false, sb);
+		if(sb.length() == 0){
+			return null;
+		}
+		else{
+			return sb.toString().trim();
+		}
+	}
+
+	private void descendents(Node node, K key, Boolean son, StringBuffer sb){
+		if(node != null){
+			if(!son){
+				son = key.compareTo(node.key) == 0;
+			}
+			if(son){
+				sb.append(" " + node.value);
+			}
+			descendents(node.left, key, son, sb);
+			descendents(node.right, key, son, sb);
+		}
+	}
+
+	@Override
 	public void insert(K key, V value) {
 	    root = insert(root, key, value);
 	}
@@ -57,10 +84,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	    } else if (key.compareTo(node.key) < 0) {
 	        node.left = insert(node.left, key, value);
 	    }
-
 	    return node;
 	}
-	
+
 	@Override
 	public String toString() {
 	    return root == null ? "[empty]" : printTree(new StringBuffer());
@@ -225,8 +251,4 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
         return null;
     }
 
-    @Override
-    public String descendents(K key) {
-        return null;
-    }
 }
