@@ -193,14 +193,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		}
 		return countLeaves(node.left) + countLeaves(node.right);
 	}
-	
-	@Override
-	public int degree(K key) {
-    	if(root != null){
-			return countInternalNodes(root.left) + countInternalNodes(root.right);
-		}
-		return 0;
-	}
 
 	@Override
 	public String descendents(K key)
@@ -228,6 +220,15 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		}
 	}
 	
+	
+	@Override
+	public int degree(K key) {
+    	if(root != null){
+			return countInternalNodes(root.left) + countInternalNodes(root.right);
+		}
+		return 0;
+	}
+	
 	@Override
 	public int degreeTree() {
 		// TODO Auto-generated method stub
@@ -245,12 +246,25 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	
+	
 
 	@Override
 	public int depth(K key) {
-		// TODO Auto-generated method stub
-		return 0;
+		return depth(root, key, 0);
 	}
+
+	private int depth(Node node, K key, int d) {
+	    if (node == null) {
+	        return -1;
+	    } else if (key.compareTo(node.key) == 0) {
+	        return d;
+	    }
+	    return depth(node.next(key), key, d+1);
+	}
+	
+	
 	
 	
 	@Override
