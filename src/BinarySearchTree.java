@@ -1,5 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearchTreeADT<K, V> {
 
     protected Node root;
@@ -10,7 +8,7 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
         private Node left, right;
 
         public Node(K key, V value) {
-            this.key = key;
+            this.key = key; 
             this.value = value;
         }
 
@@ -43,32 +41,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	        return node.value;
 	    }
 	    return search(node.next(key), key);
-	}
-
-	@Override
-	public String descendents(K key)
-	{
-		StringBuffer sb = new StringBuffer();
-		descendents(root, key, false, sb);
-		if(sb.length() == 0){
-			return null;
-		}
-		else{
-			return sb.toString().trim();
-		}
-	}
-
-	private void descendents(Node node, K key, Boolean son, StringBuffer sb){
-		if(node != null){
-			if(!son){
-				son = key.compareTo(node.key) == 0;
-			}
-			if(son){
-				sb.append(" " + node.value);
-			}
-			descendents(node.left, key, son, sb);
-			descendents(node.right, key, son, sb);
-		}
 	}
 
 	@Override
@@ -192,63 +164,120 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		}
 		return 0;
 	}
+	
+	/* Modifiquei para não precisar de parâmetros */
+	public int countInternalNodes() {
+		return countInternalNodes(root);
+	}
+	private int countInternalNodes(Node node) {
+		//com root;
+		if(node == root){
+			return countInternalNodes(node.left) + countInternalNodes(node.right);
+		}
+		if(node != null && (node.left != null || node.right != null) ){
+			return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
+		}
+		return 0;
+	}
+	
+	@Override
+	public int countLeaves() {
+		return countLeaves(root);
+	}
+	private int countLeaves(Node node){
+		if(node == null){
+			return 0;
+		}
+		if(node.left == null && node.right == null ){
+			return 1;
+		}
+		return countLeaves(node.left) + countLeaves(node.right);
+	}
 
 	@Override
-	public int countInternalNodes() {
+	public String descendents(K key)
+	{
+		StringBuffer sb = new StringBuffer();
+		descendents(root, key, false, sb);
+		if(sb.length() == 0){
+			return null;
+		}
+		else{
+			return sb.toString().trim();
+		}
+	}
+
+	private void descendents(Node node, K key, Boolean son, StringBuffer sb){
+		if(node != null){
+			if(!son){
+				son = key.compareTo(node.key) == 0;
+			}
+			if(son){
+				sb.append(" " + node.value);
+			}
+			descendents(node.left, key, son, sb);
+			descendents(node.right, key, son, sb);
+		}
+	}
+	
+	
+	@Override
+	public int degree(K key) {
     	if(root != null){
 			return countInternalNodes(root.left) + countInternalNodes(root.right);
 		}
 		return 0;
 	}
-
-	public int countInternalNodes(Node node) {
-    	if(node != null){
-			if(node.left != null || node.right != null){
-				return 1 + countInternalNodes(node.left) + countInternalNodes(node.right);
-			}
-		}
+	
+	@Override
+	public int degreeTree() {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public int height(K key) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
-    @Override
-    public void levelOrder() {
+	@Override
+	public int heightTree() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
 
-    }
+	@Override
+	public int depth(K key) {
+		return depth(root, key, 0);
+	}
 
-    @Override
-    public int countLeaves() {
-        return 0;
-    }
+	private int depth(Node node, K key, int d) {
+	    if (node == null) {
+	        return -1;
+	    } else if (key.compareTo(node.key) == 0) {
+	        return d;
+	    }
+	    return depth(node.next(key), key, d+1);
+	}
+	
+	
+	
+	
+	@Override
+	public String ancestors(K key) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    @Override
-    public int degree(K key) {
-        return 0;
-    }
+	@Override
+	public void levelOrder() {
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public int degreeTree() {
-        return 0;
-    }
-
-    @Override
-    public int height(K key) {
-        return 0;
-    }
-
-    @Override
-    public int heightTree() {
-        return 0;
-    }
-
-    @Override
-    public int depth(K key) {
-        return 0;
-    }
-
-    @Override
-    public String ancestors(K key) {
-        return null;
-    }
 
 }
