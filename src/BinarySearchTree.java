@@ -1,4 +1,3 @@
-
 public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearchTreeADT<K, V> {
 
     protected Node root;
@@ -57,10 +56,9 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	    } else if (key.compareTo(node.key) < 0) {
 	        node.left = insert(node.left, key, value);
 	    }
-
 	    return node;
 	}
-	
+
 	@Override
 	public String toString() {
 	    return root == null ? "[empty]" : printTree(new StringBuffer());
@@ -155,14 +153,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	   }
 	}
 
-	
-//	Contrato Descrição
-//	countNodes
-//	Objetivo: retornar o número de nós
-//	da árvore.
-//	Parâmetros: nenhum.
-//	Retorno: número de nós da árvore ou zero caso a árvore esteja
-//	vazia.
 	@Override
 	public int countNodes() {
 		return countNodes(root);
@@ -174,21 +164,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		}
 		return 0;
 	}
-
-	//	countInternalNodes
-	//	Objetivo: retornar o número de nós
-	//	internos da árvore.
-	//	Parâmetros: nenhum.
-	//	Retorno: número de nós internos da
-	//	árvore ou zero caso a árvore
-	//	esteja vazia.
 	
-	//Nó não terminal (ou nó interno) (internal node):
-	//é um nó que não é uma folha e é diferente da raiz 
-	//(cuidado: alguns autores tratam a raiz como um nó interno, 
-	//pois depende do propósito! Em nosso contexto
-	//, a raiz não faz parte!!!).
-	@Override
+	/* Modifiquei para não precisar de parâmetros */
 	public int countInternalNodes() {
 		return countInternalNodes(root);
 	}
@@ -203,13 +180,6 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		return 0;
 	}
 	
-
-	@Override
-	public void levelOrder() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public int countLeaves() {
 		return countLeaves(root);
@@ -226,10 +196,38 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	
 	@Override
 	public int degree(K key) {
-		// TODO Auto-generated method stub
+    	if(root != null){
+			return countInternalNodes(root.left) + countInternalNodes(root.right);
+		}
 		return 0;
 	}
 
+	@Override
+	public String descendents(K key)
+	{
+		StringBuffer sb = new StringBuffer();
+		descendents(root, key, false, sb);
+		if(sb.length() == 0){
+			return null;
+		}
+		else{
+			return sb.toString().trim();
+		}
+	}
+
+	private void descendents(Node node, K key, Boolean son, StringBuffer sb){
+		if(node != null){
+			if(!son){
+				son = key.compareTo(node.key) == 0;
+			}
+			if(son){
+				sb.append(" " + node.value);
+			}
+			descendents(node.left, key, son, sb);
+			descendents(node.right, key, son, sb);
+		}
+	}
+	
 	@Override
 	public int degreeTree() {
 		// TODO Auto-generated method stub
@@ -253,7 +251,8 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	
 	@Override
 	public String ancestors(K key) {
 		// TODO Auto-generated method stub
@@ -261,14 +260,10 @@ public class BinarySearchTree<K extends Comparable<K>, V> implements BinarySearc
 	}
 
 	@Override
-	public String descendents(K key) {
+	public void levelOrder() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
-	
-	
-	
 
-	
-	
+
 }
